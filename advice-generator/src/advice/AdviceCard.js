@@ -1,12 +1,13 @@
 import "./AdviceCard.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AdviceCard = () => {
     const [adviceNumber, setAdviceNumber] = useState(0);
     const [adviceContent, setAdviceContent] = useState("");
 
     const getAdvice = () => {
+        console.log("clicked");
         fetch("https://api.adviceslip.com/advice", {
             headers: {
                 Accept: "application / json",
@@ -15,10 +16,26 @@ const AdviceCard = () => {
         })
             .then((data) => data.json())
             .then((data) => {
+                console.log(data);
                 setAdviceNumber(data.slip.id);
                 setAdviceContent(data.slip.advice);
+                localStorage.setItem(
+                    "advice",
+                    JSON.stringify({
+                        number: data.slip.id,
+                        content: data.slip.advice,
+                    })
+                );
             });
     };
+
+    useEffect(() => {
+        const savedAdviceData = JSON.parse(localStorage.getItem("advice"));
+        if (savedAdviceData) {
+            setAdviceNumber(savedAdviceData.number);
+            setAdviceContent(savedAdviceData.content);
+        }
+    }, []);
 
     return (
         <div className="advice-container">
