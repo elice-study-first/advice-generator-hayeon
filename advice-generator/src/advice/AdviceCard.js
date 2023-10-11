@@ -16,7 +16,6 @@ const AdviceCard = () => {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log(data);
                 setAdviceNumber(data.slip.id);
                 setAdviceContent(data.slip.advice);
                 localStorage.setItem(

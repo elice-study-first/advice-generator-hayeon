@@ -13,13 +13,19 @@
 
     position: relative;
 
-    transition: all 1s;
+    transition: all 0.7s;
+}
+
+.advice-container:hover {
+    filter: drop-shadow(12px 12px 0px hsl(218, 22%, 7%));
+
+    transform: translate(-12px, -12px);
 }
 
 .advice-container:has(.advice-button:hover) {
-    box-shadow: 0px 8px 0px #000000;
+    filter: none;
 
-    transform: translate(0px, -8px);
+    transform: none;
 }
 
 .advice-title {
