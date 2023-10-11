@@ -1,3 +1,4 @@
+import { LoadingSpinner } from "../loading/LoadingSpinner.js";
 import "./AdviceCard.css";
 
 import { useEffect, useState } from "react";
@@ -5,9 +6,10 @@ import { useEffect, useState } from "react";
 const AdviceCard = () => {
     const [adviceNumber, setAdviceNumber] = useState(0);
     const [adviceContent, setAdviceContent] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const getAdvice = () => {
-        console.log("clicked");
+        setLoading(true);
         fetch("https://api.adviceslip.com/advice", {
             headers: {
                 Accept: "application / json",
@@ -25,6 +27,7 @@ const AdviceCard = () => {
                         content: data.slip.advice,
                     })
                 );
+                setLoading(false);
             });
     };
 
@@ -38,6 +41,7 @@ const AdviceCard = () => {
 
     return (
         <div className="advice-container">
+            {loading ? <LoadingSpinner></LoadingSpinner> : null}
             <span className="advice-title">{adviceNumber !== 0 && `ADVICE #${adviceNumber}`}</span>
             <p className="advice-content">{adviceContent !== "" ? `"${adviceContent}"` : "Get Advice By Click Button!"}</p>
             <img className="advice-divider" src="/images/pattern-divider-desktop.svg" alt="pattern divider"></img>
