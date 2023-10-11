@@ -45,7 +45,7 @@ const AdviceCard = () => {
             <span className="advice-title">{adviceNumber !== 0 && `ADVICE #${adviceNumber}`}</span>
             <p className="advice-content">{adviceContent !== "" ? `"${adviceContent}"` : "Get Advice By Click Button!"}</p>
             <img className="advice-divider" src="/images/pattern-divider-desktop.svg" alt="pattern divider"></img>
-            <button className="advice-button get-new" onClick={getAdvice}></button>
+            <button className="advice-button get-new" onClick={loading ? null : getAdvice} disabled={loading ? true : false}></button>
         </div>
     );
 };
